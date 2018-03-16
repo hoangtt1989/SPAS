@@ -3,6 +3,7 @@
 S3method(PIC,STAVE)
 S3method(print,STAVE)
 export(PIC)
+export(PIC_inner)
 export(STAVE)
 export(multi_sampler)
 export(npn_cor)

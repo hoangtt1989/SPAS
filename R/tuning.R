@@ -1,4 +1,12 @@
-#' @keywords internal
+#' Internal PIC function - not meant to be directly accessed by users.
+#' 
+#' @param loss the squared error loss.
+#' @param DF degrees of freedom.
+#' @param IF inflation factor.
+#' @param mn the number of observations (univariate), or the number of responses times the number of observations (multivariate).
+#' @param const1 the constant for DF.
+#' @param const2 the constant for IF.
+#' @export
 PIC_inner <- function(loss, DF, IF, mn, const1 = 1.5, const2 = .8) {
   complexity <- (DF * const1 + IF * const2) / mn
   if (complexity >= 1 || any(is.na(complexity) || is.nan(complexity) || is.infinite(complexity))) {
