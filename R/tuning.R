@@ -1,3 +1,4 @@
+#' @keywords internal
 PIC_inner <- function(loss, DF, IF, mn, const1 = 1.5, const2 = .8) {
   complexity <- (DF * const1 + IF * const2) / mn
   if (complexity >= 1 || any(is.na(complexity) || is.nan(complexity) || is.infinite(complexity))) {
