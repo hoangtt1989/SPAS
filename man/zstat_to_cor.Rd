@@ -6,6 +6,11 @@
 \usage{
 zstat_to_cor(zstat, n)
 }
+\arguments{
+\item{zstat}{numeric vector of z statistics.}
+
+\item{n}{number of observations.}
+}
 \description{
 Convert z statistics to correlations.
 }

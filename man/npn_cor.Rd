@@ -4,7 +4,19 @@
 \alias{npn_cor}
 \title{Create the SKEPTIC estimates for Spearman's rho and Kendall's tau.}
 \usage{
-npn_cor(x, y = NULL, method = c("spearman", "kendall"))
+npn_cor(x, y = NULL, method = c("spearman", "kendall"), ...)
+}
+\arguments{
+\item{x}{a numeric vector or matrix.}
+
+\item{y}{a numeric vector or matrix with compatible dimensions to \code{x}.}
+
+\item{method}{a string indicating the type of correlation matrix.}
+
+\item{...}{additional arguments passed to \code{stats::cor}.}
+}
+\value{
+A (possibly indefinite) correlation matrix.
 }
 \description{
 Create the SKEPTIC estimates for Spearman's rho and Kendall's tau.

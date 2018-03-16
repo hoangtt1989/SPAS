@@ -1,8 +1,14 @@
 #' Create the SKEPTIC estimates for Spearman's rho and Kendall's tau.
+#' 
+#' @param x a numeric vector or matrix.
+#' @param y a numeric vector or matrix with compatible dimensions to \code{x}.
+#' @param method a string indicating the type of correlation matrix.
+#' @param ... additional arguments passed to \code{stats::cor}.
+#' @return A (possibly indefinite) correlation matrix.
 #' @export
-npn_cor <- function(x, y = NULL, method = c("spearman", "kendall")) {
+npn_cor <- function(x, y = NULL, method = c("spearman", "kendall"), ...) {
   method <- method[1]
-  cor_est <- stats::cor(x, y, method = method)
+  cor_est <- stats::cor(x, y, method = method, ...)
   cor_adj <- switch(method,
                     kendall = 2 * sin(cor_est * pi / 6),
                     spearman = sin(cor_est * pi / 2))

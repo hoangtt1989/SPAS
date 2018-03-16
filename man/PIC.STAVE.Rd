@@ -4,8 +4,18 @@
 \alias{PIC.STAVE}
 \title{STAVE method for PIC}
 \usage{
-\method{PIC}{STAVE}(object, n, type = "fractional", const1 = 1.5,
-  const2 = 0.8, ...)
+\method{PIC}{STAVE}(object, n, const1 = 1.5, const2 = 0.8, ...)
+}
+\arguments{
+\item{object}{an object with a PIC method.}
+
+\item{n}{the number of observations.}
+
+\item{const1}{the constant for DF.}
+
+\item{const2}{the constant for IF.}
+
+\item{...}{not used.}
 }
 \description{
 STAVE method for PIC

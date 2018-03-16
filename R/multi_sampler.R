@@ -15,7 +15,20 @@ beta_init_sampler <- function(X_affinity, y_affinity, num_sub) {
   return(beta_samp)
 }
 
-
+#' Multi-sampling for random starts.
+#' 
+#' @param X_affinity a symmetric matrix of affinities between predictors.
+#' @param y_affinity a vector of affinities between each predictor and the response.
+#' @param lambda the tuning paramemter. Either a non-negative real number for soft or hard thresholding or a non-negative integer for quantile thresholding.
+#' @param num_sub the number of non-zero elements in the initial beta estimates.
+#' @param num_init the number of initial beta estimates.
+#' @param iter_init the number of iterations for the initial beta estimates.
+#' @param num_run the number of initial estimates to run to convergence.
+#' @param seed an integer for setting the seed.
+#' @param init_type the type of sampling for the initial beta estimates. Sampler uses the magnitudes of values in y_affinity, rnorm uses \code{stat::rnorm}.
+#' @param parallel a boolean indicating whether the \code{foreach} loop should be parallelized. A backend for \code{foreach} must be registered if this is \code{T}.
+#' @param ... additional arguments passed to \code{STAVE}.
+#' @return A \code{STAVE} object.
 #' @export
 multi_sampler <- function(X_affinity, y_affinity, lambda, num_sub = lambda, 
                           num_init = 50, iter_init = 5, num_run = 2, seed = 123, init_type = c('sampler', 'rnorm'), parallel = F, ...) {

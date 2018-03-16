@@ -1,26 +1,39 @@
-PIC_inner <- function(loss, DF, IF, mn, type = 'fractional', const1 = 1.5, const2 = .8) {
+PIC_inner <- function(loss, DF, IF, mn, const1 = 1.5, const2 = .8) {
   complexity <- (DF * const1 + IF * const2) / mn
   if (complexity >= 1 || any(is.na(complexity) || is.nan(complexity) || is.infinite(complexity))) {
     val <- Inf
   } else {
-    val <- switch(type,
-                  additive = log(loss) + complexity,
-                  fractional = loss / (1 - complexity),
-                  GCV = loss / (1 - complexity)^2,
-                  plug = loss + complexity * loss)
+    val <- loss / (1 - complexity)
+    # val <- switch(type,
+    #               additive = log(loss) + complexity,
+    #               fractional = loss / (1 - complexity),
+    #               GCV = loss / (1 - complexity)^2,
+    #               plug = loss + complexity * loss)
   }
   return(val)
 }
-#' Generic method for PIC
+#' Generic method for PIC (fractional form)
+#' 
+#' @param object an object with a PIC method.
+#' @param n the number of observations.
+#' @param const1 the constant for DF.
+#' @param const2 the constant for IF.
+#' @param ... additional arguments passed to methods.
 #' @export
-PIC <- function(object, n, type = 'fractional', const1 = 1.5, const2 = .8, ...) {
+PIC <- function(object, n, const1 = 1.5, const2 = .8, ...) {
   UseMethod('PIC', object)
 }
 #' STAVE method for PIC
+#' 
+#' @param object an object with a PIC method.
+#' @param n the number of observations.
+#' @param const1 the constant for DF.
+#' @param const2 the constant for IF.
+#' @param ... not used.
 #' @export
-PIC.STAVE <- function(object, n, type = 'fractional', const1 = 1.5, const2 = .8, ...) {
+PIC.STAVE <- function(object, n, const1 = 1.5, const2 = .8, ...) {
   loss <- object$loss_final
   DF <- object$DF
   IF <- object$IF
-  PIC_inner(loss, DF, IF, n, type, const1, const2)
+  PIC_inner(loss, DF, IF, n, const1, const2)
 }

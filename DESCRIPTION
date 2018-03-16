@@ -5,7 +5,7 @@ Version: 1.0
 Date: 2018-03-14
 Author: Hoang Tran
 Maintainer: <hoang.t.tran@icloud.com>
-Description: Variable selection through non-parametric and non-linear affinities
+Description: Variable selection through non-parametric and non-linear affinities.
 License: GPL-3
 Imports: Rcpp (>= 0.12.14), RcppEigen (>= 0.3.3.3.1), doRNG, foreach, purrr
 LinkingTo: Rcpp, RcppEigen
