@@ -67,7 +67,7 @@ multi_sampler <- function(X_affinity, y_affinity, lambda, num_sub = lambda,
       p <- nrow(X_affinity)
       samp_idx <- sample(1:p, num_sub, prob = abs(y_affinity) / sum(abs(y_affinity)))
       beta_inits <- beta_fix_init
-      beta_inits[samp_idx] <- stats::rnorm(p)
+      beta_inits[samp_idx] <- stats::rnorm(num_sub)
       loss_inits <- do.call('STAVE_fval', c(list(X_affinity, y_affinity, lambda, beta_inits, max_iter = iter_init), init_inp))
       return(list(beta_inits = beta_inits, loss_inits = loss_inits))
     }
