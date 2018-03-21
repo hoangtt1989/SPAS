@@ -13,7 +13,7 @@ npn_cor(x, y = NULL, method = c("spearman", "kendall"), ...)
 
 \item{method}{a string indicating the type of correlation matrix.}
 
-\item{...}{additional arguments passed to \code{stats::cor}.}
+\item{...}{additional arguments passed to \code{\link{stats::cor}}.}
 }
 \value{
 A (possibly indefinite) correlation matrix.

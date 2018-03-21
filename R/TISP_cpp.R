@@ -3,7 +3,7 @@
 #' @param x a numeric vector or matrix.
 #' @param y a numeric vector or matrix with compatible dimensions to \code{x}.
 #' @param method a string indicating the type of correlation matrix.
-#' @param ... additional arguments passed to \code{stats::cor}.
+#' @param ... additional arguments passed to \code{\link{stats::cor}}.
 #' @return A (possibly indefinite) correlation matrix.
 #' @export
 npn_cor <- function(x, y = NULL, method = c("spearman", "kendall"), ...) {
@@ -117,5 +117,6 @@ print.STAVE <- function(x, ...) {
   cat('Estimated cardinality:', x$J,
       '\nIterations:', x$iter,
       '\nConverged:', x$converged,
+      '\nTolerance:', x$tol,
       '\nTotal time (s):', x$tot_time)
 }

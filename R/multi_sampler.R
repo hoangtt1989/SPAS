@@ -26,8 +26,8 @@ beta_init_sampler <- function(X_affinity, y_affinity, num_sub) {
 #' @param num_run the number of initial estimates to run to convergence.
 #' @param seed an integer for setting the seed.
 #' @param init_type the type of sampling for the initial beta estimates. Sampler uses the magnitudes of values in y_affinity, rnorm uses \code{stat::rnorm}.
-#' @param parallel a boolean indicating whether the \code{foreach} loop should be parallelized. A backend for \code{foreach} must be registered if this is \code{T}.
-#' @param ... additional arguments passed to \code{STAVE}.
+#' @param parallel a boolean indicating whether the \code{\link[foreach]{foreach}} loop should be parallelized. A backend for \code{\link[foreach]{foreach}} must be registered if this is \code{T}.
+#' @param ... additional arguments passed to \code{\link{STAVE}}.
 #' @return A \code{STAVE} object.
 #' @export
 multi_sampler <- function(X_affinity, y_affinity, lambda, num_sub = lambda, 
@@ -35,7 +35,6 @@ multi_sampler <- function(X_affinity, y_affinity, lambda, num_sub = lambda,
   init_type <- init_type[1]
   p <- nrow(X_affinity)
   loss_inits <- rep(0, num_init)
-  beta_inits <- matrix(0, nrow = p, ncol = num_init)
   beta_fix_init <- rep(0, p)
   dot_inp <- list(...)
   init_inp <- dot_inp
@@ -64,10 +63,11 @@ multi_sampler <- function(X_affinity, y_affinity, lambda, num_sub = lambda,
     }
   } else if (init_type == 'rnorm') {
     init_res <- foreach::foreach (i = 1:num_init) %fun% {
-      beta_inits <- stats::rnorm(p)
-      # p <- nrow(X_affinity)
-      # samp_idx <- sample(1:p, num_sub, prob = abs(y_affinity) / sum(abs(y_affinity)))
-      # beta_inits <- beta_inits[samp_idx]
+      # beta_inits <- stats::rnorm(p)
+      p <- nrow(X_affinity)
+      samp_idx <- sample(1:p, num_sub, prob = abs(y_affinity) / sum(abs(y_affinity)))
+      beta_inits <- beta_fix_init
+      beta_inits[samp_idx] <- stats::rnorm(p)
       loss_inits <- do.call('STAVE_fval', c(list(X_affinity, y_affinity, lambda, beta_inits, max_iter = iter_init), init_inp))
       return(list(beta_inits = beta_inits, loss_inits = loss_inits))
     }

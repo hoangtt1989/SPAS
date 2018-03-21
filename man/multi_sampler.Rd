@@ -27,9 +27,9 @@ multi_sampler(X_affinity, y_affinity, lambda, num_sub = lambda,
 
 \item{init_type}{the type of sampling for the initial beta estimates. Sampler uses the magnitudes of values in y_affinity, rnorm uses \code{stat::rnorm}.}
 
-\item{parallel}{a boolean indicating whether the \code{foreach} loop should be parallelized. A backend for \code{foreach} must be registered if this is \code{T}.}
+\item{parallel}{a boolean indicating whether the \code{\link[foreach]{foreach}} loop should be parallelized. A backend for \code{\link[foreach]{foreach}} must be registered if this is \code{T}.}
 
-\item{...}{additional arguments passed to \code{STAVE}.}
+\item{...}{additional arguments passed to \code{\link{STAVE}}.}
 }
 \value{
 A \code{STAVE} object.
