@@ -1,6 +1,6 @@
-Package: STAVE
+Package: SPAS
 Type: Package
-Title: Semi-parametric affinity based variable selection (STAVE)
+Title: Semi-parametric affinity based selection (SPAS)
 Version: 1.0
 Date: 2018-03-14
 Author: Hoang Tran

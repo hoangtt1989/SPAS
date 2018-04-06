@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // TISP_inner
 List TISP_inner(const Eigen::Map<Eigen::MatrixXd>& X_affinity, const Eigen::Map<Eigen::VectorXd>& y_affinity, const Eigen::Map<Eigen::VectorXd>& beta_init, const double& y_sc, const double& lambda, const int& q, double& step_size, const bool& accelerate, const bool& line_search, const double& ls_beta, const double& ls_eps, const int& ls_maxit, const double& eta, const std::string& thresh_type, const std::string& tol_type, const int& maxit, const double& eps, const std::string& ls_type);
-RcppExport SEXP _STAVE_TISP_inner(SEXP X_affinitySEXP, SEXP y_affinitySEXP, SEXP beta_initSEXP, SEXP y_scSEXP, SEXP lambdaSEXP, SEXP qSEXP, SEXP step_sizeSEXP, SEXP accelerateSEXP, SEXP line_searchSEXP, SEXP ls_betaSEXP, SEXP ls_epsSEXP, SEXP ls_maxitSEXP, SEXP etaSEXP, SEXP thresh_typeSEXP, SEXP tol_typeSEXP, SEXP maxitSEXP, SEXP epsSEXP, SEXP ls_typeSEXP) {
+RcppExport SEXP _SPAS_TISP_inner(SEXP X_affinitySEXP, SEXP y_affinitySEXP, SEXP beta_initSEXP, SEXP y_scSEXP, SEXP lambdaSEXP, SEXP qSEXP, SEXP step_sizeSEXP, SEXP accelerateSEXP, SEXP line_searchSEXP, SEXP ls_betaSEXP, SEXP ls_epsSEXP, SEXP ls_maxitSEXP, SEXP etaSEXP, SEXP thresh_typeSEXP, SEXP tol_typeSEXP, SEXP maxitSEXP, SEXP epsSEXP, SEXP ls_typeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -36,11 +36,11 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_STAVE_TISP_inner", (DL_FUNC) &_STAVE_TISP_inner, 18},
+    {"_SPAS_TISP_inner", (DL_FUNC) &_SPAS_TISP_inner, 18},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_STAVE(DllInfo *dll) {
+RcppExport void R_init_SPAS(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

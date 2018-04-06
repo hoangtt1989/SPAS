@@ -32,7 +32,7 @@ PIC_inner <- function(loss, DF, IF, mn, const1 = 1.5, const2 = .8) {
 PIC <- function(object, n, const1 = 1.5, const2 = .8, ...) {
   UseMethod('PIC', object)
 }
-#' STAVE method for PIC
+#' SPAS method for PIC
 #' 
 #' @param object an object with a PIC method.
 #' @param n the number of observations.
@@ -40,7 +40,7 @@ PIC <- function(object, n, const1 = 1.5, const2 = .8, ...) {
 #' @param const2 the constant for IF.
 #' @param ... not used.
 #' @export
-PIC.STAVE <- function(object, n, const1 = 1.5, const2 = .8, ...) {
+PIC.SPAS <- function(object, n, const1 = 1.5, const2 = .8, ...) {
   loss <- object$loss_final
   DF <- object$DF
   IF <- object$IF

@@ -18,7 +18,7 @@ npn_cor <- function(x, y = NULL, method = c("spearman", "kendall"), ...) {
   return(cor_adj)
 }
 
-#' Run iterative threshodling for Semi-Parametric Affinity Based Variable Selection (STAVE)
+#' Run iterative threshodling for Semi-Parametric Affinity Based Selection (SPAS)
 #' 
 #' @param X_affinity a symmetric matrix of affinities between predictors.
 #' @param y_affinity a vector of affinities between each predictor and the response.
@@ -37,7 +37,7 @@ npn_cor <- function(x, y = NULL, method = c("spearman", "kendall"), ...) {
 #' @param max_iter the maximum number of iterations.
 #' @param eps the maximum value of the tolerance before declaring convergence.
 #' @param ls_type either backtracking (backward) or forward tracking (forward) line search.
-#' @return An objecty of type \code{STAVE} with
+#' @return An objecty of type \code{SPAS} with
 #' \item{\code{beta_opt}}{optimal beta.}
 #' \item{\code{iter}}{number of iterations.}
 #' \item{\code{step_size}}{}
@@ -52,7 +52,7 @@ npn_cor <- function(x, y = NULL, method = c("spearman", "kendall"), ...) {
 #' \item{\code{IF}}{the inflation factor (for tuning).}
 #' \item{\code{DF}}{the degrees of freedom (for tuning).}
 #' @export
-STAVE <- function(X_affinity, y_affinity, lambda, y_sc = NULL, beta_init = NULL, eta = 1e-4, accelerate = F, line_search = T, 
+SPAS <- function(X_affinity, y_affinity, lambda, y_sc = NULL, beta_init = NULL, eta = 1e-4, accelerate = F, line_search = T, 
                         step_size = NULL, ls_beta = 1.5, ls_eps = 1e-10, ls_max_iter = 100, thresh_type = c('quantile_ridge', 'quantile', 'soft', 'hard', 'hard_ridge'), 
                         tol_type = c('beta', 'loss'), max_iter = 2000, eps = 1e-5, ls_type = c('forward', 'backward')) {
   if (nrow(X_affinity) != ncol(X_affinity)) {
@@ -104,16 +104,19 @@ STAVE <- function(X_affinity, y_affinity, lambda, y_sc = NULL, beta_init = NULL,
   # } else {
   #   DF <- J
   # }
+  if (thresh_type %in% c('quantile_ridge', 'hard_ridge')) {
+    DF <- J / (1 + eta)
+  }
   ret <- c(loop_call, list(tot_time = as.numeric(tot_time, unit = 'secs'), nz_patt = nz_patt, lambda = lambda, J = J, IF = IF, DF = DF))
-  class(ret) <- 'STAVE'
+  class(ret) <- 'SPAS'
   return(ret)
 }
 
-#' Print method for STAVE
-#' @param x a \code{STAVE} object.
+#' Print method for SPAS
+#' @param x a \code{SPAS} object.
 #' @param ... not used.
 #' @export
-print.STAVE <- function(x, ...) {
+print.SPAS <- function(x, ...) {
   cat('Estimated cardinality:', x$J,
       '\nIterations:', x$iter,
       '\nConverged:', x$converged,

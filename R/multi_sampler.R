@@ -1,6 +1,6 @@
 
-STAVE_fval <- function(X_affinity, y_affinity, lambda, beta_init, ...) {
-  res <- STAVE(X_affinity, y_affinity, lambda, beta_init = beta_init, ...)
+SPAS_fval <- function(X_affinity, y_affinity, lambda, beta_init, ...) {
+  res <- SPAS(X_affinity, y_affinity, lambda, beta_init = beta_init, ...)
   return(res$loss_final)
 }
 
@@ -27,8 +27,8 @@ beta_init_sampler <- function(X_affinity, y_affinity, num_sub) {
 #' @param seed an integer for setting the seed.
 #' @param init_type the type of sampling for the initial beta estimates. Sampler uses the magnitudes of values in y_affinity, rnorm uses \code{stat::rnorm}.
 #' @param parallel a boolean indicating whether the \code{\link[foreach]{foreach}} loop should be parallelized. A backend for \code{\link[foreach]{foreach}} must be registered if this is \code{T}.
-#' @param ... additional arguments passed to \code{\link{STAVE}}.
-#' @return A \code{STAVE} object.
+#' @param ... additional arguments passed to \code{\link{SPAS}}.
+#' @return A \code{SPAS} object.
 #' @export
 multi_sampler <- function(X_affinity, y_affinity, lambda, num_sub = lambda, 
                           num_init = 50, iter_init = 5, num_run = 2, seed = 123, init_type = c('sampler', 'rnorm'), parallel = F, ...) {
@@ -58,17 +58,16 @@ multi_sampler <- function(X_affinity, y_affinity, lambda, num_sub = lambda,
         beta_try <- beta_fix_init
       }
       beta_inits <- beta_try
-      loss_inits <- do.call('STAVE_fval', c(list(X_affinity, y_affinity, lambda, beta_try, max_iter = iter_init), init_inp))
+      loss_inits <- do.call('SPAS_fval', c(list(X_affinity, y_affinity, lambda, beta_try, max_iter = iter_init), init_inp))
       return(list(beta_inits = beta_inits, loss_inits = loss_inits))
     }
   } else if (init_type == 'rnorm') {
     init_res <- foreach::foreach (i = 1:num_init) %fun% {
-      # beta_inits <- stats::rnorm(p)
       p <- nrow(X_affinity)
       samp_idx <- sample(1:p, num_sub, prob = abs(y_affinity) / sum(abs(y_affinity)))
       beta_inits <- beta_fix_init
       beta_inits[samp_idx] <- stats::rnorm(num_sub)
-      loss_inits <- do.call('STAVE_fval', c(list(X_affinity, y_affinity, lambda, beta_inits, max_iter = iter_init), init_inp))
+      loss_inits <- do.call('SPAS_fval', c(list(X_affinity, y_affinity, lambda, beta_inits, max_iter = iter_init), init_inp))
       return(list(beta_inits = beta_inits, loss_inits = loss_inits))
     }
   }
@@ -79,7 +78,7 @@ multi_sampler <- function(X_affinity, y_affinity, lambda, num_sub = lambda,
   run_beta <- beta_inits[run_idx]
   set.seed(seed)
   run_mods <- foreach::foreach (i = 1:num_run) %fun% {
-    res <- STAVE(X_affinity, y_affinity, lambda, beta_init = run_beta[[i]], ...)
+    res <- SPAS(X_affinity, y_affinity, lambda, beta_init = run_beta[[i]], ...)
     return(res)
   }
   run_conv <- purrr::map_lgl(run_mods, 'converged')
