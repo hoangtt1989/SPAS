@@ -29,10 +29,10 @@ multi_sampler(X_affinity, y_affinity, lambda, num_sub = lambda,
 
 \item{parallel}{a boolean indicating whether the \code{\link[foreach]{foreach}} loop should be parallelized. A backend for \code{\link[foreach]{foreach}} must be registered if this is \code{T}.}
 
-\item{...}{additional arguments passed to \code{\link{STAVE}}.}
+\item{...}{additional arguments passed to \code{\link{SPAS}}.}
 }
 \value{
-A \code{STAVE} object.
+A \code{SPAS} object.
 }
 \description{
 Multi-sampling for random starts.
