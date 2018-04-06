@@ -7,14 +7,14 @@ Installation
 ------------
 
 ``` r
-devtools::install_github('hoangtt1989/STAVE')
+devtools::install_github('hoangtt1989/SPAS')
 ```
 
 Simulated Data Example
 ----------------------
 
 ``` r
-library(STAVE)
+library(SPAS)
 library(MASS)
 set.seed(123)
 n <- 200
@@ -39,20 +39,21 @@ y_trans <- sinh(y)
 X_affinity <- cor(X_trans, method = 'spearman')
 y_affinity <- cor(X_trans, y_trans, method = 'spearman')
 
-STAVE_fit <- STAVE(X_affinity, y_affinity, 10)
-STAVE_fit
+SPAS_fit <- SPAS(X_affinity, y_affinity, 10)
+SPAS_fit
 ```
 
     ## Estimated cardinality: 10 
     ## Iterations: 122 
     ## Converged: TRUE 
-    ## Total time (s): 0.03925109
+    ## Tolerance: 9.023684e-06 
+    ## Total time (s): 0.03906298
 
 What percent of the true predictors were selected?
 
 ``` r
 true_nz <- which(abs(beta - 0) > 1e-10)
-length(intersect(true_nz, STAVE_fit$nz_patt)) / J * 100
+length(intersect(true_nz, SPAS_fit$nz_patt)) / J * 100
 ```
 
     ## [1] 80
