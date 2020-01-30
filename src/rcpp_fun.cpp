@@ -25,8 +25,8 @@ using Eigen::ArrayXd;
 using Eigen::VectorXi;
 using namespace std;
 
-int isnan(double x) { return x != x; }
-int isinf(double x) { return !isnan(x) && isnan(x - x); }
+// int isnan(double x) { return x != x; }
+// int isinf(double x) { return !isnan(x) && isnan(x - x); }
 
 MatrixXd AtA(const MatrixXd & A) { // transpose of A times itself
   int n(A.cols());

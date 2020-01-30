@@ -7,9 +7,9 @@
 SPAS(X_affinity, y_affinity, lambda, y_sc = NULL, beta_init = NULL,
   eta = 1e-04, accelerate = F, line_search = T, step_size = NULL,
   ls_beta = 1.5, ls_eps = 1e-10, ls_max_iter = 100,
-  thresh_type = c("quantile_ridge", "quantile", "soft", "hard", "hard_ridge"),
-  tol_type = c("beta", "loss"), max_iter = 2000, eps = 1e-05,
-  ls_type = c("forward", "backward"))
+  thresh_type = c("quantile_ridge", "quantile", "soft", "hard",
+  "hard_ridge"), tol_type = c("beta", "loss"), max_iter = 2000,
+  eps = 1e-05, ls_type = c("forward", "backward"))
 }
 \arguments{
 \item{X_affinity}{a symmetric matrix of affinities between predictors.}
